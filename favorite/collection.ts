@@ -3,6 +3,7 @@ import type {Favorite, FavoriteTemplate} from './model';
 import FavoriteModel from './model';
 import UserCollection from '../user/collection';
 import FreetCollection from 'freet/collection';
+import UserModel from '../user/model';
 
 /**
  * This files contains a class that has the functionality to explore freets
@@ -42,12 +43,14 @@ import FreetCollection from 'freet/collection';
      * @param {string} userId - id of the user favoriting the freet 
      * @return {Promise<HydratedDocument<Favorite>>}
      */
-    static async updateOne(freetId: Types.ObjectId | string, userId: Types.ObjectId): Promise<HydratedDocument<Favorite>> {
+    static async updateOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<HydratedDocument<Favorite>> {
         const favorite = await FavoriteModel.findOne({freetId: freetId});
-        // const user = UserCollection.findOneByUserId(userId)
-        favorite.userIds.push(userId)
+        const user = UserModel.findOne({_id: userId})
+        if (user instanceof UserModel) {
+            favorite.userIds.push(user._id)
+        }
         await favorite.save();
-        return favorite.populate('authorId');
+        return favorite.populate('freetId');
         }
  }
   

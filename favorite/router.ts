@@ -86,7 +86,7 @@ router.get(
 /**
  * Add a favorite to a freet by a user 
  * FIX URL?
- * @name PUT /api/favorites?userId=userid&freetId=freetid
+ * @name PUT /api/favorites?freetId=id
  *
  * @return {FavoriteResponse} - The update favorite 
  * @throws {400} - If userId or freetId is not given 
@@ -97,17 +97,19 @@ router.get(
     '/',
     async (req: Request, res: Response, next: NextFunction) => {
         // Check to see that freet id was specified and that the freet exists   
-        if (req.query.freet !== undefined) {
+        console.log("here 1")
+        if (req.query.freetId !== undefined) {
+            console.log("here2")
             next();
             return;
           }
     },
     [
-        freetValidator.isFreetExists
+        freetValidator.isFreetExists,
+        userValidator.isUserLoggedIn
     ],
     async (req: Request, res: Response) => {
-        const freetFavorites = await FavoriteCollection.findAllByFreet(req.query.id as string);
-        // res.status(200).json(freetFavorites);
+        const freetFavorites = await FavoriteCollection.updateOne(req.query.id as string, req.session.id); // might want to rename since only 1 favorites object for one freet
         res.status(200).json({
             message: 'Your favorites were retreived successfully.',
             favorites:  freetFavorites

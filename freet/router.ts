@@ -11,7 +11,7 @@ const router = express.Router();
  * Get all the freets
  *
  * @name GET /api/freets
- *
+ *r
  * @return {FreetResponse[]} - A list of all the freets sorted in descending
  *                      order by date modified
  */
@@ -42,6 +42,7 @@ router.get(
     userValidator.isAuthorExists
   ],
   async (req: Request, res: Response) => {
+    console.log("hello")
     const authorFreets = await FreetCollection.findAllByUsername(req.query.author as string);
     const response = authorFreets.map(util.constructFreetResponse);
     res.status(200).json(response);
