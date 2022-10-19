@@ -8,8 +8,8 @@ export type Profile = {
     profileName: String;
     profileHandle: String;
     bio: String;
-    followingIds: [Types.ObjectId];
-    followerIds: [Types.ObjectId]
+    // followingIds: [Types.ObjectId];
+    followerIds: [Types.ObjectId];
   };
 
 
@@ -19,8 +19,8 @@ export type PopulatedProfile = {
     profileName: String;
     profileHandle: String;
     bio:  String;
-    followingIds: [PopulatedProfile]; // Is this bad practice?
-    followerIds: [User]
+    // followingIds: [PopulatedProfile]; // Is this bad practice?
+    followerIds: [User];
 }
 
 const ProfileSchema = new Schema<Profile>({
@@ -45,11 +45,6 @@ const ProfileSchema = new Schema<Profile>({
     bio: {
       type: String,
       required: false
-    },
-    followingIds: {
-        type: [Schema.Types.ObjectId],
-        required: false,
-        ref: 'Profile' // Is this right?
     },
     followerIds: {
         type: [Schema.Types.ObjectId],
