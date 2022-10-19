@@ -171,6 +171,51 @@ within the schema. This tells us that the `content` field must have type `String
 
 The following api routes have already been implemented for you (**Make sure to document all the routes that you have added.**):
 
+#### `GET /favorites?freetId=id`
+
+- Get an array of all the favorites of a particular free 
+
+#### `GET /favorites?userId=id`
+
+- Get all the favorites (freets) given by a certain user
+
+#### `PUT /favorites?freetId=id`
+
+- Add a favorite to this freet by the current user 
+
+#### `DELETE /favorites?freetId=id`
+
+- remove the favorite from the freet by the current user 
+
+#### `GET /followers?profileId=id`
+
+- Get all users who are following a certain profile 
+
+#### `POST /followers?profileId=id`
+
+- Follow a profile 
+
+#### `DELETE /followers?profileId=id`
+
+- Unfollow a certain profile 
+
+#### `GET /profile?profileId=id`
+
+- Display a certain profile 
+
+#### `GET /profile?userId=id`
+
+- Get all profiles a user has 
+
+#### `POST /profile`
+
+- Create a new profile page 
+
+#### `GET /profile?profileId=id`
+
+- Update info for a certain profile page 
+
+
 #### `GET /`
 
 This renders the `index.html` file that will be used to interact with the backend
