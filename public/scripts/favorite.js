@@ -1,11 +1,24 @@
-function viewFavoritesByFreet(fields) {
-    fetch(`/api/favorites?freetId=${fields.id}`)
-      .then(showResponse)
-      .catch(showResponse);
-  }
-
-function addFavoriteToFreet(fields) {
-    fetch(`/api/favorites/${fields.id}`, {method: 'PUT', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
+function addFavorite(fields) {
+    fetch('/api/favorites', {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
     .then(showResponse)
     .catch(showResponse);
 }
+
+function deleteFavorite(fields) {
+    console.log("Fields:",fields)
+    fetch(`/api/favorites/${fields.freetId}`, {method: 'DELETE'})
+    .then(showResponse)
+    .catch(showResponse);
+}
+
+function viewAllFavorites(fields) {
+    fetch('/api/favorites')
+    .then(showResponse)
+    .catch(showResponse);
+}
+
+function deleteAllFavorites(fields) {
+    fetch(`/api/favorites`, {method: 'DELETE'})
+      .then(showResponse)
+      .catch(showResponse);
+  }

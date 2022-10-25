@@ -18,6 +18,7 @@ function viewFreetsByAuthor(fields) {
 }
 
 function createFreet(fields) {
+  console.log("hello?")
   fetch('/api/freets', {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
     .then(showResponse)
     .catch(showResponse);

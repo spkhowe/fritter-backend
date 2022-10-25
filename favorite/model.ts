@@ -7,13 +7,13 @@ import type {Freet} from '../freet/model';
 export type FavoriteTemplate = {
     _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
     freetId: Types.ObjectId; // Freet that was liked
-    userIds: [Types.ObjectId]; // Users that liked the freet 
+    userId: Types.ObjectId; // User that liked the freet 
   };
 
 export type Favorite = {
     _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
     freetId: Freet; // Freet that was liked
-    userIds: [User]; // Users that liked the freet }
+    userId: User; // User that liked the freet 
 }
 
 const FavoriteSchema = new Schema<FavoriteTemplate>({
@@ -22,8 +22,8 @@ const FavoriteSchema = new Schema<FavoriteTemplate>({
         required: true,
         ref: 'Freet'
     },
-    userIds: {
-        type: [Schema.Types.ObjectId],
+    userId: {
+        type: Schema.Types.ObjectId,
         required: true,
         ref: 'User'
     }

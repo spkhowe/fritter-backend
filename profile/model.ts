@@ -4,37 +4,37 @@ import type {User} from '../user/model';
 
 export type Profile = {
     _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
-    userIds: [Types.ObjectId];
-    profileName: String;
-    profileHandle: String;
+    users: [String]; // Usernames that have access to this profile.
+    profileName: String; // Name that is displayed
+    profileHandle: String; // defaults to username for individual profile;
     bio: String;
-    // followingIds: [Types.ObjectId];
+    personal: Boolean; // If personal, only one person can access
     followerIds: [Types.ObjectId];
   };
 
 
 export type PopulatedProfile = {
     _id: Types.ObjectId;
-    userIds: [User];
+    users: [User];
     profileName: String;
     profileHandle: String;
-    bio:  String;
-    // followingIds: [PopulatedProfile]; // Is this bad practice?
+    bio: String;
+    personal: Boolean;
     followerIds: [User];
 }
 
 const ProfileSchema = new Schema<Profile>({
     // The author userId
-    userIds: {
+    users: {
       // Use Types.ObjectId outside of the schema
-      type: [Schema.Types.ObjectId],
+      type: [String],
       required: true,
-      ref: 'User' // is this right?
+      ref: 'User' 
     },
     // The name to be displayed on the profile
     profileName: {
       type: String,
-      required: true
+      required: false
     },
     // Profile handle
     profileHandle: {
@@ -45,6 +45,10 @@ const ProfileSchema = new Schema<Profile>({
     bio: {
       type: String,
       required: false
+    },
+    personal: {
+      type: Boolean,
+      required: true
     },
     followerIds: {
         type: [Schema.Types.ObjectId],

@@ -18,40 +18,71 @@ import UserModel from '../user/model';
      * Find all favorites by freet.
      * 
      * @param {string} freetId - The id of the freet 
-     * @return {Promise<HydratedDocument<Favorite>[]>} - An array of all the favorites
+     * @return {Promise<HydratedDocument<FavoriteTemplate>[]>} - An array of all the favorites
      */
-    static async findAllByFreet(freetId: Types.ObjectId | string): Promise<Array<HydratedDocument<Favorite>>> {
-        const freet = await FreetCollection.findOne(freetId);
-        return FavoriteModel.find({freetId: freet._id}).populate('freetId');
+    static async findAllByFreet(freetId: Types.ObjectId | string): Promise<Array<HydratedDocument<FavoriteTemplate>>> {
+        return FavoriteModel.find({freetId: freetId}).populate('freetId userId');
+    }
+    
+    /**
+     * Find all favorites in database
+     * 
+     * @return {Promise<HydratedDocument<FavoriteTemplate>[]>}
+     */
+    static async findAll(): Promise<Array<HydratedDocument<FavoriteTemplate>>> {
+        return FavoriteModel.find({}).populate('freetId userId');
     }
 
     /**
-     * Find all favorites by user.
+     * Delete all favorites in database 
      * 
-     * @param {string} userId - The id of the user 
-     * @return {Promise<HydratedDocument<Favorite>[]>} - An array of all the favorites that user has given 
+     * @return {Promise<void>} - true if the favorites have been deleted, false otherwise
+    */
+    static async deleteAll(): Promise<void> {
+        await FavoriteModel.remove({});
+    }
+
+
+     /**
+     * Find a favorite by freetid and userid
+     *
+     * @param {string} freetId 
+     * @param {string} userId
+     * @return {Promise<HydratedDocument<Freet>> | Promise<null> } - The favorite with the given freetId and freetId, if any
      */
-         static async findAllByUser(freetId: Types.ObjectId | string): Promise<Array<HydratedDocument<Favorite>>> {
-            const freet = await FreetCollection.findOne(freetId);
-            return FavoriteModel.find({freetId: freet._id}).populate('freetId');
+    static async findOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<HydratedDocument<Favorite>> {
+            return FavoriteModel.findOne({freetId: freetId, userId: userId}).populate('freetId userId');
         }
 
     /**
      * Add a favorite to a freet 
      * 
-     * @param {string} freetId - id of the freet 
-     * @param {string} userId - id of the user favoriting the freet 
-     * @return {Promise<HydratedDocument<Favorite>>}
+     * @param {Types.ObjectId} freetId - id of the freet 
+     * @param {Types.ObjectId} userId - id of the user favoriting the freet 
+     * @return {Promise<HydratedDocument<FavoriteTemplate>>}
      */
-    static async updateOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<HydratedDocument<Favorite>> {
-        const favorite = await FavoriteModel.findOne({freetId: freetId});
-        const user = UserModel.findOne({_id: userId})
-        if (user instanceof UserModel) {
-            favorite.userIds.push(user._id)
+    static async addOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<HydratedDocument<FavoriteTemplate>> {
+        const fav = new FavoriteModel({
+            freetId,
+            userId: userId
+        })
+        await fav.save(); // saves favorite to mongoDB
+        return fav.populate('freetId userId');
+        // return favorite.populate('userId');
         }
-        await favorite.save();
-        return favorite.populate('freetId');
-        }
+
+    /**
+     * Delete a freet with given freetId.
+     *
+     * @param {string} freetId - The freetId
+     * @param {string} userId - The user who favorited the freet 
+     * @return {Promise<Boolean>} - true if the fav has been deleted, false otherwise
+     */
+    static async deleteOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<boolean> {
+        const f = await FavoriteModel.findOne({freetId: freetId, userId: userId});
+        const favorite = await FavoriteModel.deleteOne({_id: f._id});
+        return favorite !== null;
+    }
  }
   
 export default FavoriteCollection;

@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="/scripts/freet.js"></script>
   <script src="/scripts/user.js"></script>
+  <script src="/scripts/favorite.js"></script>
   <script src="/scripts/index.js"></script>
 </head>
 
@@ -76,7 +77,7 @@
         <form id="view-all-freets">
             <h3>View All Freets</h3>
             <input type="submit" value="View All Freets">
-          </form>
+        </form>
 
         <form id="view-freets-by-author">
           <h3>View Freets By Author</h3>
@@ -117,22 +118,57 @@
           </div>
           <input type="submit" value="Delete Freet">
         </form>
-        <form id="freet-favorites">
-          <h3>Get freet favorites</h3>
+  
+        <form id="add-favorite">
+          <h3>Favorite a freet</h3>
           <div>
-            <label for="id">ID:</label>
-            <input id="id" name="id">
+            <label for="freetId">Freet ID:</label>
+            <input id="freetId" name="freetId">
           </div>
-          <input type="submit" value="Get Favorites">
-      </form>
-      <form id="add-favorite">
-        <h3>Favorite a freet</h3>
-        <div>
-          <label for="id">Freet ID:</label>
-          <input id="id" name="id">
-        </div>
-        <input type="submit" value="Favorite this freet">
-    </form>
+          <input type="submit" value="Favorite this freet">
+        </form>
+
+        <form id="delete-favorite">
+          <h3>Remove favorite from a freet</h3>
+          <div>
+            <label for="freetId">Freet ID:</label>
+            <input id="freetId" name="freetId">
+          </div>
+          <input type="submit" value="Unfavorite this freet">
+        </form>
+
+        <form id="view-all-favorites">
+          <h3>View All Favorites</h3>
+          <input type="submit" value="View All Favorites">
+        </form>
+
+        <form id="delete-all-favorites">
+          <h3>Delete All Favorites</h3>
+          <input type="submit" value="Delete All Favorites">
+        </form>
+
+        <form id="create-profile">
+          <h3>Create New Profile</h3>
+          <div>
+            <label for="handle">Handle:</label>
+            <input id="handle" name="handle">
+          </div>
+          <div>
+            <label for="name">Display Name:</label>
+            <input id="name" name="name">
+          </div>
+          <div>
+            <label for="bio">Bio:</label>
+            <input id="bio" name="bio">
+          </div>
+          <div>
+            <label for="personal">Handle:</label>
+            <input id="personal" name="personal">
+          </div>
+          <input type="submit" value="Create Profile">
+        </form>
+
+
       </div>
     </section>
     <section>
