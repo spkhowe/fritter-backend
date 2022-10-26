@@ -15,7 +15,7 @@ export type Profile = {
 
 export type PopulatedProfile = {
     _id: Types.ObjectId;
-    users: [User];
+    users: [String];
     profileName: String;
     profileHandle: String;
     bio: String;
@@ -28,9 +28,8 @@ const ProfileSchema = new Schema<Profile>({
     users: {
       // Use Types.ObjectId outside of the schema
       type: [String],
-      required: true,
-      ref: 'User' 
-    },
+      required: true
+      },
     // The name to be displayed on the profile
     profileName: {
       type: String,
