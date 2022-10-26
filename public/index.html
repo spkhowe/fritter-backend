@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   <script src="/scripts/freet.js"></script>
   <script src="/scripts/user.js"></script>
+  <script src="/scripts/favorite.js"></script>
+  <script src="/scripts/profile.js"></script>
+  <script src="/scripts/follow.js"></script>
+  <script src="/scripts/homepage.js"></script>
+  <script src="/scripts/homepage2.js"></script>
   <script src="/scripts/index.js"></script>
 </head>
 
@@ -76,7 +81,7 @@
         <form id="view-all-freets">
             <h3>View All Freets</h3>
             <input type="submit" value="View All Freets">
-          </form>
+        </form>
 
         <form id="view-freets-by-author">
           <h3>View Freets By Author</h3>
@@ -117,6 +122,106 @@
           </div>
           <input type="submit" value="Delete Freet">
         </form>
+  
+        <form id="add-favorite">
+          <h3>Favorite a freet</h3>
+          <div>
+            <label for="freetId">Freet ID:</label>
+            <input id="freetId" name="freetId">
+          </div>
+          <input type="submit" value="Favorite this freet">
+        </form>
+
+        <form id="delete-favorite">
+          <h3>Remove favorite from a freet</h3>
+          <div>
+            <label for="freetId">Freet ID:</label>
+            <input id="freetId" name="freetId">
+          </div>
+          <input type="submit" value="Unfavorite this freet">
+        </form>
+
+        <form id="view-all-favorites">
+          <h3>View All Favorites</h3>
+          <input type="submit" value="View All Favorites">
+        </form>
+
+        <form id="delete-all-favorites">
+          <h3>Delete All Favorites</h3>
+          <input type="submit" value="Delete All Favorites">
+        </form>
+
+        <form id="create-group-profile">
+          <h3>Create a New Group Profile</h3>
+          <div>
+            <label for="username">Handle:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="Create Group Profile">
+        </form>
+
+        <form id="view-profile-by-username">
+          <h3>View Profile</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="View Profile">
+        </form>
+
+        <form id="view-profiles-by-user">
+          <h3>View All My Profiles</h3>
+          <input type="submit" value="View Profiles">
+        </form>
+
+        <form id="delete-profile-by-username">
+          <h3>Delete Profile</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="Delete Profile">
+        </form>
+
+        <form id="follow-profile">
+          <h3>Follow Profile</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="Follow Profile">
+        </form>
+
+        <form id="unfollow-profile">
+          <h3>Unfollow Profile</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="Unfollow Profile">
+        </form>
+
+
+        <form id="view-user-following">
+          <h3>See who a user is following</h3>
+          <div>
+            <label for="username">Username:</label>
+            <input id="username" name="username">
+          </div>
+          <input type="submit" value="See profiles">
+        </form>
+
+        <form id="view-homepage">
+          <h3>View my home feed</h3>
+          <input type="submit" value="View home">
+        </form>
+
+        <form id="view-activity-homepage">
+          <h3>View my following activity feed</h3>
+          <input type="submit" value="View">
+        </form>
+
+
       </div>
     </section>
     <section>

@@ -11,6 +11,11 @@ import dotenv from 'dotenv';
 import * as userValidator from '../user/middleware';
 import {userRouter} from '../user/router';
 import {freetRouter} from '../freet/router';
+import {favoriteRouter} from '../favorite/router';
+import {profileRouter} from '../profile/router';
+import {followRouter} from '../follow/router';
+import {homepageRouter} from '../homepage/router';
+import {homepageRouter2} from '../homepage2/router';
 
 // Load environmental variables
 dotenv.config({});
@@ -76,6 +81,11 @@ app.get('/', (req: Request, res: Response) => {
 // Add routers from routes folder
 app.use('/api/users', userRouter);
 app.use('/api/freets', freetRouter);
+app.use('/api/favorites', favoriteRouter);
+app.use('/api/profiles', profileRouter);
+app.use('/api/follows', followRouter);
+app.use('/api/homepage', homepageRouter);
+app.use('/api/homepage/activity', homepageRouter2);
 
 // Catch all the other routes and display error message
 app.all('*', (req: Request, res: Response) => {

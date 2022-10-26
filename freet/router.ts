@@ -11,7 +11,7 @@ const router = express.Router();
  * Get all the freets
  *
  * @name GET /api/freets
- *
+ *r
  * @return {FreetResponse[]} - A list of all the freets sorted in descending
  *                      order by date modified
  */
@@ -33,7 +33,6 @@ router.get(
       next();
       return;
     }
-
     const allFreets = await FreetCollection.findAll();
     const response = allFreets.map(util.constructFreetResponse);
     res.status(200).json(response);

@@ -1,6 +1,7 @@
 import type {Request, Response, NextFunction} from 'express';
 import {Types} from 'mongoose';
 import UserCollection from '../user/collection';
+import ProfileCollection from '../profile/collection';
 
 /**
  * Checks if the current session user (if any) still exists in the database, for instance,
@@ -85,11 +86,12 @@ const isAccountExists = async (req: Request, res: Response, next: NextFunction) 
  * Checks if a username in req.body is already in use
  */
 const isUsernameNotAlreadyInUse = async (req: Request, res: Response, next: NextFunction) => {
+  console.log("Here", req.body.username)
   const user = await UserCollection.findOneByUsername(req.body.username);
-
+  const profile = await ProfileCollection.findOneByUsername(req.body.username)
   // If the current session user wants to change their username to one which matches
   // the current one irrespective of the case, we should allow them to do so
-  if (!user || (user?._id.toString() === req.session.userId)) {
+  if (!user && !profile || (user?._id.toString() === req.session.userId)) {
     next();
     return;
   }
@@ -150,7 +152,29 @@ const isAuthorExists = async (req: Request, res: Response, next: NextFunction) =
     return;
   }
 
-  next();
+  next();             
+};
+
+
+/**
+ * Checks if a user with userId as username in req.query exists
+ */
+ const isUserExists = async (req: Request, res: Response, next: NextFunction) => {
+  if (!req.query.username) {
+    res.status(400).json({
+      error: 'Provided user username must be nonempty.'
+    });
+    return;
+  }
+  const user = await UserCollection.findOneByUsername(req.query.username as string);
+  if (!user) {
+    res.status(404).json({
+      error: `A user with username ${req.query.username as string} does not exist.`
+    });
+    return;
+  }
+
+  next();             
 };
 
 export {
@@ -161,5 +185,6 @@ export {
   isAccountExists,
   isAuthorExists,
   isValidUsername,
-  isValidPassword
+  isValidPassword,
+  isUserExists
 };
