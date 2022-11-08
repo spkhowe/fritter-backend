@@ -6,6 +6,7 @@ import type {Freet, PopulatedFreet} from '../freet/model';
 type FreetResponse = {
   _id: string;
   author: string;
+  profile: string;
   dateCreated: string;
   content: string;
   dateModified: string;
@@ -38,6 +39,7 @@ const constructFreetResponse = (freet: HydratedDocument<Freet>): FreetResponse =
     ...freetCopy,
     _id: freetCopy._id.toString(),
     author: username,
+    profile: freetCopy.profile.profileHandle,
     dateCreated: formatDate(freet.dateCreated),
     dateModified: formatDate(freet.dateModified)
   };

@@ -1,6 +1,6 @@
 import type {Types, PopulatedDoc, Document} from 'mongoose';
 import {Schema, model} from 'mongoose';
-import { Profile } from 'profile/model';
+import { Profile } from '../profile/model';
 import type {User} from '../user/model';
 
 /**
@@ -12,6 +12,7 @@ import type {User} from '../user/model';
 export type Freet = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
   authorId: Types.ObjectId;
+  profile: string; // when is it best to track by username vs by object id?
   dateCreated: Date;
   content: string;
   dateModified: Date;
@@ -20,6 +21,7 @@ export type Freet = {
 export type PopulatedFreet = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
   authorId: User;
+  profile: Profile;
   dateCreated: Date;
   content: string;
   dateModified: Date;
@@ -35,6 +37,11 @@ const FreetSchema = new Schema<Freet>({
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'User'
+  },
+  profile: {
+    type: String,
+    required: true,
+    // ref: 'Profile'
   },
   // The date the freet was created
   dateCreated: {

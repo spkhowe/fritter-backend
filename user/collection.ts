@@ -1,4 +1,6 @@
 import type {HydratedDocument, Types} from 'mongoose';
+import ProfileModel from '../profile/model';
+import { profileRouter } from '../profile/router';
 import type {User} from './model';
 import UserModel from './model';
 
@@ -69,15 +71,19 @@ class UserCollection {
    */
   static async updateOne(userId: Types.ObjectId | string, userDetails: any): Promise<HydratedDocument<User>> {
     const user = await UserModel.findOne({_id: userId});
+    const oldUsername = user.username;
+    const personalProfile = await ProfileModel.findOne({users: oldUsername});
     if (userDetails.password) {
       user.password = userDetails.password as string;
     }
 
     if (userDetails.username) {
       user.username = userDetails.username as string;
+      personalProfile.profileHandle = userDetails.username as string;
     }
 
     await user.save();
+    await personalProfile.save()
     return user;
   }
 

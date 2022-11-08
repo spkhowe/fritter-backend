@@ -30,7 +30,7 @@ const constructProfileResponse = (profile: HydratedDocument<Profile>): ProfileRe
   return {
     ...profileCopy,
     _id: profileCopy._id.toString(),
-    users: profileCopy.users.map(toString),
+    users: profileCopy.users,
     profileName: profileCopy.profileName,
     profileHandle: profileCopy.profileHandle,
     bio: profileCopy.bio,

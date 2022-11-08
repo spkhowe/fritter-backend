@@ -5,7 +5,6 @@ function addFavorite(fields) {
 }
 
 function deleteFavorite(fields) {
-    console.log("Fields:",fields)
     fetch(`/api/favorites/${fields.freetId}`, {method: 'DELETE'})
     .then(showResponse)
     .catch(showResponse);

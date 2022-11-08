@@ -33,7 +33,6 @@ router.get(
           return;
         }
         // otherwise get all profiles the current user is a part of 
-        console.log("session:", req.session)
         const userId = req.session.userId || "";
         const user = await UserModel.findOne({_id: userId});
         const allProfiles = await ProfileCollection.findAllByUser(user.username);
@@ -47,7 +46,6 @@ router.get(
     async (req: Request, res: Response) => {
         const profile = await ProfileCollection.findOneByUsername(req.query.username as string);
         const response = ProfileUtil.constructProfileResponse(profile);
-        console.log("Profile:", profile)
         res.status(200).json(response);
       }
 )
@@ -82,6 +80,15 @@ router.get(
   );
 
 /**
+ * Update a profile.
+ * 
+ * @name PUT /api/profiles/:username
+ * 
+ * @retur
+ */
+
+
+/**
  * Delete a profile.
  *
  * @name DELETE /api/profiles/:username
@@ -97,8 +104,9 @@ router.delete(
     ],
     async (req: Request, res: Response) => {
       ProfileCollection.deleteAllByUsername(req.params.username)
+      // ProfileCollection.deleteAllByUsername(req.params.username)
       res.status(200).json({
-        message: 'Your account has been deleted successfully.'
+        message: 'Your group profile has been deleted successfully.'
       });
     }
   );
